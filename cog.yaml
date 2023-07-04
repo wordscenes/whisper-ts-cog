@@ -1,0 +1,6 @@
+build:
+  gpu: true
+  python_version: "3.11"
+  python_packages:
+    - "stable-ts==2.0.0"
+    - "demucs==4.0.0"
