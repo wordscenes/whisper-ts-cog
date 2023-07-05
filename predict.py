@@ -18,7 +18,7 @@ class Predictor(BasePredictor):
     def predict(self,
             audio_path: Path = Input(description="Audio to transcribe"),
             language: str = Input(default="en", description="Language to transcribe"),
-    ) -> Path:
+    ) -> str:
         result = self.model.transcribe(
             str(audio_path),
             language=language,
@@ -28,5 +28,9 @@ class Predictor(BasePredictor):
             beam_size=5,
             best_of=5,
             )
+        # Adapted from stable_whisper/text_output.py; original can only save to file
+        if not isinstance(result, dict) and callable(getattr(result, 'to_dict')):
+            result = result.to_dict()
         output = json.dumps(result, allow_nan=True)
+
         return output
