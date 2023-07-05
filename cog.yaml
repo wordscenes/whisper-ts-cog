@@ -1,7 +1,5 @@
 build:
   gpu: true
-  # see https://github.com/replicate/cog/issues/1162
-  cuda: "11.1.1"
   python_version: "3.11"
   python_packages:
     - "stable-ts==2.0.0"
