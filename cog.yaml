@@ -6,8 +6,10 @@ build:
   python_packages:
     - "stable-ts==2.0.0"
     - "demucs==4.0.0"
+  system_packages:
+    - "ffmpeg"
   run:
     # I believe this is needed to trigger pre-download of the Whisper model
-    - stable-ts testing-1-2-3.mp3 --model=large-v2 --language=en
+    # - stable-ts testing-1-2-3.mp3 --model=large-v2 --language=en
 
 predict: "predict.py:Predictor"

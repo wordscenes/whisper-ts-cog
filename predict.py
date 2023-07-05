@@ -7,14 +7,14 @@ import stable_whisper
 class Predictor(BasePredictor):
     def setup(self):
         """Load the model into memory to make running multiple predictions efficient"""
-        self.model = stable_whisper.load_model(model='large-v2')
+        self.model = stable_whisper.load_model('large-v2')
 
     def predict(self,
-            audio: Path = Input(description="Audio to transcribe"),
+            audio_path: Path = Input(description="Audio to transcribe"),
             language: str = Input(default="en", description="Language to transcribe"),
     ) -> Path:
         result = self.model.transcribe(
-            audio,
+            str(audio_path),
             language=language,
             demucs=True,
             regroup=True,
