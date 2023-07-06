@@ -8,7 +8,7 @@ build:
   system_packages:
     - "ffmpeg"
   # The below does *not* work; run commands here don't have access to the code; therefore, we require
-  # the user to do `cog run` to download model weights instead of downloading them here
+  # the user to use `cog run` to download models instead of downloading them here
   # run:
-  #   - python script/download_weights.py
+  #   - python script/download_models.py
 predict: "predict.py:Predictor"
