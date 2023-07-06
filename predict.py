@@ -1,16 +1,25 @@
+# Predictor using the stable-whisper library with hardwired configuration that we found to work;
+# TODO: copy the CLI configuration options into the API; to do this, it would be easier if all of the CLI
+# options (of stable-ts) were available programmatically as well
+
 import json
 
 from cog import BasePredictor, Path, Input
 import stable_whisper
 import numpy as np
 
+
+MODEL_CACHE = Path(__file__).parent / 'model_cache'
 temperature_increment_on_fallback=0.2
 
 
 class Predictor(BasePredictor):
     def setup(self):
         """Load the model into memory to make running multiple predictions efficient"""
-        self.model = stable_whisper.load_model('large-v2')
+        self.model = stable_whisper.load_model(
+            'large-v2',
+            download_root=str(MODEL_CACHE),
+            device='cuda')
         # --temperature_increment_on_fallback is only supported in the stable-ts
         # CLI, not in the API, so we copy the logic here to get the same behavior
         self.temperature = tuple(np.arange(0, 1.0 + 1e-6, temperature_increment_on_fallback))
