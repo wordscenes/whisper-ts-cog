@@ -20,9 +20,9 @@ sudo chmod +x /usr/local/bin/cog
 
 4) Clone this repo and cd into it
 
-5) Download the model:
+5) Download the model to the Docker container:
 ```shell
-python script/download_weights.py
+sudo cog run script/download_weights.py
 ```
 
 6) Test by building the container and running prediction on the included sample file:
