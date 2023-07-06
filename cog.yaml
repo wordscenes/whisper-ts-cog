@@ -7,4 +7,8 @@ build:
     - "demucs==4.0.0"
   system_packages:
     - "ffmpeg"
+  # The below does *not* work; run commands here don't have access to the code; therefore, we require
+  # the user to do `cog run` to download model weights instead of downloading them here
+  # run:
+  #   - python script/download_weights.py
 predict: "predict.py:Predictor"
