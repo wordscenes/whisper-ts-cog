@@ -7,6 +7,4 @@ build:
     - "demucs==4.0.0"
   system_packages:
     - "ffmpeg"
-  run:
-    - python script/download_weights.py
 predict: "predict.py:Predictor"
