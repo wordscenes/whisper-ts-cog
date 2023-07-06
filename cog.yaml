@@ -1,4 +1,4 @@
-image: "r8.im/garfieldnate/whisper-stable-ts"
+image: "r8.im/wordscenes/whisper-stable-ts"
 build:
   gpu: true
   python_version: "3.11"
@@ -7,8 +7,5 @@ build:
     - "demucs==4.0.0"
   system_packages:
     - "ffmpeg"
-  run:
-    # I believe this is needed to trigger pre-download of the Whisper model
-    # - stable-ts testing-1-2-3.mp3 --model=large-v2 --language=en
 
 predict: "predict.py:Predictor"
