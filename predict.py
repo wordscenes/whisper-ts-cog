@@ -49,6 +49,6 @@ class Predictor(BasePredictor):
         # Adapted from stable_whisper/text_output.py; original can only save to file
         if not isinstance(result, dict) and callable(getattr(result, 'to_dict')):
             result = result.to_dict()
-        output = json.dumps(result, allow_nan=True)
+        output = json.dumps(result, allow_nan=True, ensure_ascii=False)
 
         return output
