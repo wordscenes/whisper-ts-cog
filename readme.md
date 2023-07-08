@@ -32,11 +32,13 @@ sudo cog predict -i audio_path=@testing-1-2-3.mp3 -i language=en
 
 7) Push to replicate:
 ```shell
-cog login
+sudo cog login
 sudo cog push
 ```
 
 If you get `name unknown: The model https://replicate.com/wordscenes/whisper-stable-ts does not exist`, then you forgot to use `sudo` in `cog push`!
+
+If you get `You are not logged in to Replicate. Run 'cog login' and try again.`, then you forgot to use `sudo` in `cog login`!
 
 8) Go to https://replicate.com/wordscenes/whisper-stable-ts/versions, grab the latest version ID, and replace it in any code that calls this API (unfortunately you can't just call the latest version :( ).
 
