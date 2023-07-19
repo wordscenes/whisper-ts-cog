@@ -26,6 +26,7 @@ class Predictor(BasePredictor):
 
         self.model = stable_whisper.load_model(
             'large-v2',
+            cpu_preload=True,
             download_root=str(MODEL_CACHE),
             device='cuda')
 
