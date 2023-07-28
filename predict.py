@@ -26,7 +26,8 @@ class Predictor(BasePredictor):
 
         self.model = stable_whisper.load_model(
             'large-v2',
-            cpu_preload=True,
+            # This is supposed to make loading faster, but it results in encoding errors for Japanese
+            # cpu_preload=True,
             download_root=str(MODEL_CACHE),
             device='cuda')
 
@@ -43,7 +44,6 @@ class Predictor(BasePredictor):
             language=language,
             demucs=True,
             regroup=True,
-            # **decode_options
             beam_size=5,
             best_of=5,
             )

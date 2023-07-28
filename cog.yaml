@@ -3,7 +3,8 @@ build:
   gpu: true
   python_version: "3.11"
   python_packages:
-    - "stable-ts==2.0.0"
+    # latest release is 2.0.0, but that takes forever to run for some reason
+    - "git+https://github.com/jianfch/stable-ts.git@789bb543115e486fad450dffd40e0dcf39e041d5"
     - "demucs==4.0.0"
   system_packages:
     - "ffmpeg"

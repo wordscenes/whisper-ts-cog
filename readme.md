@@ -30,6 +30,10 @@ sudo cog run script/download_models.py
 sudo cog predict -i audio_path=@testing-1-2-3.mp3 -i language=en
 ```
 
+You may also want to try with your own uploaded audio. Send it to the server with `scp`:
+
+    scp -i <your_key_rsa> <your_audio>.mp3 ubuntu@<machine IP>:/home/ubuntu/whisper-ts-cog/<your_audio>.mp3
+
 7) Push to replicate:
 ```shell
 sudo cog login
