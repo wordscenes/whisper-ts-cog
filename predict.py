@@ -38,7 +38,9 @@ class Predictor(BasePredictor):
     def predict(self,
             audio_path: Path = Input(description="Audio to transcribe"),
             language: str = Input(default="en", description="Language to transcribe"),
+            # False by default because we think it might be too aggressive and remove some voice data
             demucs: bool = Input(default=False, description="Whether to preprocess the audio track with Demucs to isolate vocals/remove noise."),
+            # Super important for reducing prediction time
             vad: bool = Input(default=True, description="Whether to use Silero VAD to generate timestamp suppression mask."),
             beam_size: int = Input(default=5, description="Number of beams in beam search, only applicable when temperature is zero."),
             best_of: int = Input(default=5, description="Number of candidates when sampling with non-zero temperature."),
