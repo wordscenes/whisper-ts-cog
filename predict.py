@@ -4,7 +4,6 @@
 
 import json
 import os
-from typing import Union
 
 from cog import BasePredictor, Path, Input
 import stable_whisper
@@ -43,8 +42,7 @@ class Predictor(BasePredictor):
             vad: bool = Input(default=True, description="Whether to use Silero VAD to generate timestamp suppression mask."),
             beam_size: int = Input(default=5, description="Number of beams in beam search, only applicable when temperature is zero."),
             best_of: int = Input(default=5, description="Number of candidates when sampling with non-zero temperature."),
-            regroup: Union[bool, str] = Input(default=True, description="Whether to regroup all words into segments with more natural boundaries. "
-                                              "Specify string for customizing the regrouping algorithm."),
+            regroup: bool = Input(default=True, description="Whether to regroup all words into segments with more natural boundaries."),
     ) -> str:
         result = self.model.transcribe(
             str(audio_path),
