@@ -24,8 +24,8 @@ class Predictor(BasePredictor):
         # Ensure that demucs models are downloaded to the cache directory
         os.environ["TORCH_HOME"] = str(MODEL_CACHE)
 
-        self.model = stable_whisper.load_model(
-            'large-v2',
+        self.model = stable_whisper.load_faster_whisper(
+            'large-v3',
             # This is supposed to make loading faster, but it results in encoding errors for Japanese
             # cpu_preload=True,
             download_root=str(MODEL_CACHE),
@@ -46,7 +46,7 @@ class Predictor(BasePredictor):
             best_of: int = Input(default=5, description="Number of candidates when sampling with non-zero temperature."),
             regroup: bool = Input(default=True, description="Whether to regroup all words into segments with more natural boundaries."),
     ) -> str:
-        result = self.model.transcribe(
+        result = self.model.transcribe_stable(
             str(audio_path),
             language=language,
             demucs=demucs,

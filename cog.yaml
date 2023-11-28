@@ -3,8 +3,9 @@ build:
   gpu: true
   python_version: "3.11"
   python_packages:
-    # latest release is 2.0.0, but that takes forever to run for some reason
-    - "git+https://github.com/jianfch/stable-ts.git@789bb543115e486fad450dffd40e0dcf39e041d5"
+    # latest release is OLD! Use a much newer commit instead
+    - "git+https://github.com/jianfch/stable-ts.git@900797a90a35b09fef9fe13574e963dc6a58aa56"
+    - "faster-whisper==0.10.0"
     - "demucs==4.0.0"
   system_packages:
     - "ffmpeg"
