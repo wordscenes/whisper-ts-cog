@@ -4,8 +4,7 @@ build:
   python_version: "3.11"
   python_packages:
     # latest release is OLD! Use a much newer commit instead
-    - "git+https://github.com/jianfch/stable-ts.git@900797a90a35b09fef9fe13574e963dc6a58aa56"
-    - "faster-whisper==0.10.0"
+    - "git+https://github.com/jianfch/stable-ts.git@d51edb6ad86b06f4582f4c06fcf8a4b6dc8e0bca"
     - "demucs==4.0.0"
   system_packages:
     - "ffmpeg"

@@ -7,19 +7,19 @@ import os
 
 from cog import BasePredictor, Path, Input
 import stable_whisper
-import faster_whisper
 import numpy as np
 
 # all model files will be downloaded to this directory
 MODEL_CACHE = Path(__file__).parent / 'model_cache'
 temperature_increment_on_fallback = 0.2
 
-WHISPER_MODEL = 'large-v3'
+# Not v3! See "rejected experiments" in readme
+WHISPER_MODEL = 'large-v2'
 
 
 def report_versions():
     print(f'Using stable-ts version {stable_whisper.__version__}')
-    print(f'Using faster-whisper version {faster_whisper.__version__}')
+    print('*Not* using faster-whisper')  # see "rejected experiments" in readme
     print(f'Using Whisper model {WHISPER_MODEL}')
 
 
@@ -33,7 +33,7 @@ class Predictor(BasePredictor):
         # Ensure that demucs models are downloaded to the cache directory
         os.environ["TORCH_HOME"] = str(MODEL_CACHE)
 
-        self.model = stable_whisper.load_faster_whisper(
+        self.model = stable_whisper.load_model(
             WHISPER_MODEL,
             # This is supposed to make loading faster, but it results in encoding errors for Japanese
             # cpu_preload=True,
@@ -56,7 +56,7 @@ class Predictor(BasePredictor):
             regroup: bool = Input(default=True, description="Whether to regroup all words into segments with more natural boundaries."),
     ) -> str:
         report_versions()
-        result = self.model.transcribe_stable(
+        result = self.model.transcribe(
             str(audio_path),
             language=language,
             demucs=demucs,

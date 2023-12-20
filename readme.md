@@ -45,11 +45,11 @@ Judging manually, the roughly expected timestamps are:
 
 You should also double-check the printed module versions to make sure they're what you meant to use.
 
-You may also want to try with your own uploaded audio. Send it to the server with `scp`:
+You should also check with a more difficult file; we do not include it here for copyright reasons, but internally we test with the first 5 minutes of Shrek in Japanese. Send the file to the server with `scp`:
 
     scp -i <your_key_rsa> <your_audio>.mp3 ubuntu@<machine IP>:/home/ubuntu/whisper-ts-cog/<your_audio>.mp3
 
-Testing on our internal subtitle test file, prediction takes 2m6s, with 36s used for startup. Also note that the first word after the long song is given a timespan consisting of the previous 20s. Not sure what to do about that right now.
+Transcribing Shrek takes 2m6s, with 36s used for startup. Also note that the first word after the long song is given a timespan consisting of the previous 20s. TODO: Not sure what to do about that right now.
 
 Note as well that the outputs are different from run to run.
 
@@ -65,3 +65,7 @@ If you get `You are not logged in to Replicate. Run 'cog login' and try again.`,
 
 8) Go to https://replicate.com/wordscenes/whisper-stable-ts/versions, grab the latest version ID, and replace it in any code that calls this API (unfortunately you can't just call the latest version :( ).
 
+## Rejected Experiments
+
+* Whisper model "large-v3" does horribly on the Shrek test, replacing many phrases with "ご視聴ありがとうございました" (others have also reported "thank you for watching" hallucinations in English). See https://deepgram.com/learn/whisper-v3-results for some validating evidence that this model severely underperforms vs. "large-v2".
+* [`faster-whisper`](https://github.com/SYSTRAN/faster-whisper) (version "0.10.0") degrades accuracy on the Shrek test, omitting one sentence at the end of the clip ("よし、もう満杯だ"), as well as reducing the expressiveness of the onomatopetic katakana expressions. It is faster, but we want accuracy.
