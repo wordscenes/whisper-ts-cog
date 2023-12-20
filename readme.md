@@ -45,9 +45,9 @@ Judging manually, the roughly expected timestamps are:
 
 You should also double-check the printed module versions to make sure they're what you meant to use.
 
-You should also check with a more difficult file; we do not include it here for copyright reasons, but internally we test with the first 5 minutes of Shrek in Japanese. Send the file to the server with `scp`:
+You should also check with a more difficult file; we do not include it here for copyright reasons, but internally we test with the first 5 minutes of Shrek in Japanese. Send the file to the server with `scp` (taking care not to put it in the `whisper-ts-cog` directory, as that will will include it in the Docker image if you build again):
 
-    scp -i <your_key_rsa> <your_audio>.mp3 ubuntu@<machine IP>:/home/ubuntu/whisper-ts-cog/<your_audio>.mp3
+    scp -i <your_key_rsa> <your_audio>.mp3 ubuntu@<machine IP>:/home/ubuntu/<your_audio>.mp3
 
 Transcribing Shrek takes 2m6s, with 36s used for startup. Also note that the first word after the long song is given a timespan consisting of the previous 20s. TODO: Not sure what to do about that right now.
 
