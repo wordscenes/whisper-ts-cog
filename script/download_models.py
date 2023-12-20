@@ -11,4 +11,4 @@ from predict import Predictor
 # Running prediction once will trigger the download of the model
 p = Predictor()
 p.setup()
-p.predict(audio_path=Path('testing-1-2-3.mp3'), language='en', best_of=1, beam_size=1, regroup=True, vad=True, demucs=False)
+p.predict(audio_path=Path('testing-1-2-3.mp3'), language='en', best_of=1, beam_size=1, regroup=True, vad=True, demucs=True)
