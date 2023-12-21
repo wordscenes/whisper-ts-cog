@@ -6,15 +6,14 @@ This is a wrapper of [stable-ts](https://github.com/jianfch/stable-ts) for deplo
 
 The most up-to-date documentation is here: https://replicate.com/docs/guides/push-a-model
 
-1) Fire up the cheapest GPU machine on [lambdalabs](https://cloud.lambdalabs.com/instances). You can pick a cheap GPU machine if it's available. You should also attach a filesystem.
+1) Fire up the cheapest GPU machine on [lambdalabs](https://cloud.lambdalabs.com/instances). You can pick a cheap GPU machine if it's available. You should also attach a filesystem. If an instance isn't available, try again in ten minutes, or maybe a few hours :(.
 
-2) SSH into the instance
+2) SSH into the instance, or use LambdaLab's Cloud IDE and open a terminal.
 
 3) Install cog:
 
 ```shell
-# this version fixes https://github.com/replicate/cog/issues/1162#issuecomment-1622248885
-sudo curl -o /usr/local/bin/cog -L https://github.com/replicate/cog/releases/download/v0.8.0-beta11/cog_`uname -s`_`uname -m`
+sudo curl -o /usr/local/bin/cog -L https://github.com/replicate/cog/releases/download/v0.8.6/cog_`uname -s`_`uname -m`
 sudo chmod +x /usr/local/bin/cog
 ```
 
@@ -64,6 +63,23 @@ If you get `name unknown: The model https://replicate.com/wordscenes/whisper-sta
 If you get `You are not logged in to Replicate. Run 'cog login' and try again.`, then you forgot to use `sudo` in `cog login`!
 
 8) Go to https://replicate.com/wordscenes/whisper-stable-ts/versions, grab the latest version ID, and replace it in any code that calls this API (unfortunately you can't just call the latest version :( ).
+
+## Known Issues
+
+You might deploy your image only to find that it fails to run with a message stating that `libcuda.so` could not be found. I do not know what causes this. You can easily see that libcuda.so is present in the image by running:
+
+```shell
+sudo docker image ls
+sudo docker run -it [image_id] bash -c "find / -type f -name libcuda.so"
+```
+
+naklecha on Replicate's Discord said that this is caused by LambdaLabs' machine having a memory issue, causing the file to be excluded from the image, which doesn't sound plausible to me. They say that the fix for them was to just delete and prune all of the images on the instance and build again. I tried this with no luck.
+
+Removing `demucs=True` from the download_models.py script did not yield a working image, either.
+
+I've opened an issue here: https://github.com/replicate/cog/issues/1448.
+
+TODO: follow-up and deploy image when this issue is resolved.
 
 ## Rejected Experiments
 
