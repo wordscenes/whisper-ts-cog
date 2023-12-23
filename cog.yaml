@@ -7,8 +7,9 @@ build:
     - "git+https://github.com/jianfch/stable-ts.git@d51edb6ad86b06f4582f4c06fcf8a4b6dc8e0bca"
     - "demucs==4.0.0"
     # TODO: this is a workaround for https://github.com/replicate/cog/issues/1448
-    # We have to add an explicit dependency on torch to make sure Cog knows to include CUDA.
-    - "torch==2.1.2"
+    # We have to add an explicit dependency on torch 2.0.1 (this exact version!) to
+    # make sure Cog knows to include CUDA.
+    - "torch==2.0.1"
   system_packages:
     - "ffmpeg"
   # The below does *not* work; run commands here don't have access to the code; therefore, we require

@@ -50,8 +50,6 @@ You should also check with a more difficult file; we do not include it here for 
 
 Transcribing Shrek takes 2m6s, with 36s used for startup. Also note that the first word after the long song is given a timespan consisting of the previous 20s. TODO: Not sure what to do about that right now.
 
-Note as well that the outputs are different from run to run.
-
 7) Push to replicate:
 ```shell
 sudo cog login
