@@ -54,6 +54,7 @@ class Predictor(BasePredictor):
             beam_size: int = Input(default=5, description="Number of beams in beam search, only applicable when temperature is zero."),
             best_of: int = Input(default=5, description="Number of candidates when sampling with non-zero temperature."),
             regroup: bool = Input(default=True, description="Whether to regroup all words into segments with more natural boundaries."),
+            initial_prompt: str = Input(default=None, description="Text to provide as a prompt for the first window."),
     ) -> str:
         report_versions()
         result = self.model.transcribe(
@@ -64,6 +65,7 @@ class Predictor(BasePredictor):
             regroup=regroup,
             beam_size=beam_size,
             best_of=best_of,
+            initial_prompt=initial_prompt,
             )
         # Adapted from stable_whisper/text_output.py; original can only save to file
         if not isinstance(result, dict) and callable(getattr(result, 'to_dict')):
