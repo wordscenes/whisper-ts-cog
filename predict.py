@@ -7,7 +7,6 @@ import os
 import typing
 
 from cog import BasePredictor, Path, Input
-from cog.types import Weights
 import stable_whisper
 import numpy as np
 from torch import nn
