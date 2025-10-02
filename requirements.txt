@@ -5,3 +5,4 @@ demucs==4.0.0
 # We have to add an explicit dependency on torch 2.0.1 (this exact version!) to
 # make sure Cog knows to include CUDA.
 torch==2.0.1
+numpy<2
