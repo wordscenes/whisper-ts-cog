@@ -8,6 +8,7 @@ import typing
 
 from cog import BasePredictor, Path, Input
 import stable_whisper
+import stable_whisper.audio
 import numpy as np
 from torch import nn
 
@@ -51,14 +52,13 @@ class Predictor(BasePredictor):
             mode: str = Input(default="transcribe", choices=["transcribe", "align"], description="Mode: 'transcribe' to generate transcript, 'align' to align provided text"),
             text: str = Input(default="", description="Text to align with audio (required when mode='align')"),
             language: str = Input(default="en", description="Language to transcribe"),
-            # False by default because we think it might be too aggressive and remove some voice data
-            demucs: bool = Input(default=False, description="Whether to preprocess the audio track with Demucs to isolate vocals/remove noise (transcribe mode only)."),
+            denoiser: str = Input(default=None, choices=list(stable_whisper.audio.SUPPORTED_DENOISERS.keys()), description="The denoiser to use (transcribe mode only)."),
             # Super important for reducing prediction time
             vad: bool = Input(default=True, description="Whether to use Silero VAD to generate timestamp suppression mask."),
             beam_size: int = Input(default=5, description="Number of beams in beam search, only applicable when temperature is zero (transcribe mode only)."),
             best_of: int = Input(default=5, description="Number of candidates when sampling with non-zero temperature (transcribe mode only)."),
             regroup: bool = Input(default=True, description="Whether to regroup all words into segments with more natural boundaries."),
-            initial_prompt: str = Input(default="", description="Text to provide as a prompt for the first window (transcribe mode only)."),
+            initial_prompt: str = Input(default=None, description="Text to provide as a prompt for the first window (transcribe mode only)."),
             **_kwargs,
     ) -> str:
         report_versions()
@@ -77,7 +77,7 @@ class Predictor(BasePredictor):
             result = self.model.transcribe(
                 str(audio_path),
                 language=language,
-                demucs=demucs,
+                denoiser=denoiser,
                 vad=vad,
                 regroup=regroup,
                 beam_size=beam_size,
