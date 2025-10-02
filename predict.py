@@ -47,19 +47,19 @@ class Predictor(BasePredictor):
         # CLI, not in the API, so we copy the logic here to get the same behavior
         self.temperature = tuple(np.arange(0, 1.0 + 1e-6, temperature_increment_on_fallback))
 
-    def predict(self,
+    def predict( # pyright: ignore[reportIncompatibleMethodOverride] (Pyright complains about **kwargs missing, but cog doesn't support untyped parameters)
+            self,
             audio_path: Path = Input(description="Audio to transcribe or align"),
             mode: str = Input(default="transcribe", choices=["transcribe", "align"], description="Mode: 'transcribe' to generate transcript, 'align' to align provided text"),
             text: str = Input(default="", description="Text to align with audio (required when mode='align')"),
             language: str = Input(default="en", description="Language to transcribe"),
-            denoiser: str = Input(default=None, choices=list(stable_whisper.audio.SUPPORTED_DENOISERS.keys()), description="The denoiser to use (transcribe mode only)."),
+            denoiser: typing.Optional[str] = Input(default=None, choices=list(stable_whisper.audio.SUPPORTED_DENOISERS.keys()), description="The denoiser to use (transcribe mode only)."),
             # Super important for reducing prediction time
             vad: bool = Input(default=True, description="Whether to use Silero VAD to generate timestamp suppression mask."),
             beam_size: int = Input(default=5, description="Number of beams in beam search, only applicable when temperature is zero (transcribe mode only)."),
             best_of: int = Input(default=5, description="Number of candidates when sampling with non-zero temperature (transcribe mode only)."),
             regroup: bool = Input(default=True, description="Whether to regroup all words into segments with more natural boundaries."),
-            initial_prompt: str = Input(default=None, description="Text to provide as a prompt for the first window (transcribe mode only)."),
-            **_kwargs,
+            initial_prompt: typing.Optional[str] = Input(default=None, description="Text to provide as a prompt for the first window (transcribe mode only)."),
     ) -> str:
         report_versions()
 

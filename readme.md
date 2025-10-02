@@ -34,10 +34,18 @@ sudo cog run script/download_models.py
 
 If you get `nvidia-container-cli: requirement error: unsatisfied condition: cuda>=11.8, please update your driver to a newer version, or use an earlier cuda container: unknown`, then you didn't attach a file system. (I guess it runs out of memory or something. It's a stupid error message 🤷.)
 
+Note: sudo is necessary, see [Replicate docs](https://replicate.com/docs/guides/build/get-a-gpu-on-lambda-labs#run-an-existing-model)
+
 6) Test by building the container and running prediction on the included sample file:
 
 ```shell
 sudo cog predict -i audio_path=@testing-1-2-3.mp3 -i language=en
+```
+
+You can also test the align method by itself.
+
+```shell
+sudo cog predict -i audio_path=@testing-1-2-3.mp3 -i language=en -i mode=align -i text="Testing, one, two, three."
 ```
 
 Judging manually, the roughly expected timestamps are:
