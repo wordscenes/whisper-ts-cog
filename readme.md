@@ -6,7 +6,7 @@ This is a wrapper of [stable-ts](https://github.com/jianfch/stable-ts) for deplo
 
 The most up-to-date documentation is here: https://replicate.com/docs/guides/push-a-model
 
-1) Fire up the cheapest GPU machine on [lambdalabs](https://cloud.lambdalabs.com/instances). You can pick a cheap GPU machine if it's available. You should also attach a filesystem. If an instance isn't available, try again in ten minutes, or maybe a few hours :(.
+1) Fire up the cheapest GPU machine on [lambdalabs](https://cloud.lambdalabs.com/instances). You can pick a cheap GPU machine if it's available. You should also attach a filesystem.
 
 2) SSH into the instance, or use LambdaLab's Cloud IDE and open a terminal.
 
@@ -19,8 +19,10 @@ sudo chmod +x /usr/local/bin/cog
 
 4) Clone this repo and cd into it
 
-    git clone https://github.com/garfieldnate/whisper-ts-cog.git
-    cd whisper-ts-cog
+```shell
+git clone https://github.com/wordscenes/whisper-ts-cog.git
+cd whisper-ts-cog
+```
 
 5) Download the models to the Docker container:
 ```shell
