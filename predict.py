@@ -27,7 +27,7 @@ def report_versions():
 
 
 class Predictor(BasePredictor):
-    def setup(self, weights: Weights | None = None):
+    def setup(self, weights = None):
         """Load the model into memory to make running multiple predictions efficient"""
 
         # Ensure the model cache directory exists
@@ -65,7 +65,7 @@ class Predictor(BasePredictor):
         report_versions()
 
         if mode == "align":
-            if text is "":
+            if text == "":
                 raise ValueError("text parameter is required when mode='align'")
             result = typing.cast(nn.Module, self.model.align)(
                 str(audio_path),

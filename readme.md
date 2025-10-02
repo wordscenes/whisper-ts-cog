@@ -1,12 +1,14 @@
 # Whisper with Stable Timestamps
 
-This is a wrapper of [stable-ts](https://github.com/jianfch/stable-ts) for deployment on [Replicate](https://replicate.com/).
+This is a wrapper of [stable-ts](https://github.com/jianfch/stable-ts) for deployment on [Replicate](https://replicate.com).
 
 ## Deploying to Replicate
 
 The most up-to-date documentation is here: https://replicate.com/docs/guides/push-a-model
 
-1) Fire up the cheapest GPU machine on [lambdalabs](https://cloud.lambdalabs.com/instances). You can pick a cheap GPU machine if it's available. You should also attach a filesystem.
+1) Fire up the cheapest GPU machine on [Lambda](https://cloud.lambda.ai/instances). You should also attach a filesystem.
+
+Note: The Lambda ARM64 instances have issues building the image as of October 2025. Use x86_64.
 
 2) SSH into the instance, or use LambdaLab's Cloud IDE and open a terminal.
 
@@ -20,6 +22,7 @@ sudo chmod +x /usr/local/bin/cog
 4) Clone this repo and cd into it
 
 ```shell
+cd [filesystem name] # if you attached a filesystem
 git clone https://github.com/wordscenes/whisper-ts-cog.git
 cd whisper-ts-cog
 ```
