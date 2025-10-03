@@ -8,7 +8,7 @@ The most up-to-date documentation is here: https://replicate.com/docs/guides/pus
 
 1) Fire up the cheapest GPU machine on [Lambda](https://cloud.lambda.ai/instances). You should also attach a filesystem.
 
-Note: The Lambda ARM64 instances have issues building the image as of October 2025. Use x86_64.
+Note: cog has issues building the image on Lambda ARM64 instances as of October 2025. Use x86_64.
 
 2) SSH into the instance, or use LambdaLab's Cloud IDE and open a terminal.
 
