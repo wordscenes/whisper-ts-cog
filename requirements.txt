@@ -1,5 +1,4 @@
-# latest release is OLD! Use a much newer commit instead
-stable-ts==2.19.1
+https://github.com/jianfch/stable-ts/archive/55669d7.zip
 demucs==4.0.0
 # TODO: this is a workaround for https://github.com/replicate/cog/issues/1448
 # We have to add an explicit dependency on torch 2.0.1 (this exact version!) to

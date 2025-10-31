@@ -42,7 +42,8 @@ class Predictor(BasePredictor):
             # This is supposed to make loading faster, but it results in encoding errors for Japanese
             # cpu_preload=True,
             download_root=str(MODEL_CACHE),
-            device='cuda')
+            device='cuda'
+        )
 
         # --temperature_increment_on_fallback is only supported in the stable-ts
         # CLI, not in the API, so we copy the logic here to get the same behavior
@@ -77,6 +78,7 @@ class Predictor(BasePredictor):
                 denoiser=denoiser,
                 vad=vad,
                 regroup=regroup,
+                aligner='new',
             )
         else:  # transcribe
             result = self.model.transcribe(
@@ -87,6 +89,7 @@ class Predictor(BasePredictor):
                 regroup=regroup,
                 beam_size=beam_size,
                 best_of=best_of,
+                aligner='new',
                 initial_prompt=initial_prompt,
             )
 
