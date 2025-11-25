@@ -90,7 +90,7 @@ class Predictor(BasePredictor):
                 if all(c in "0123456789" for c in tokenizer.decode([i]).removeprefix(" "))
             ]
             if suppress_numbers:
-                suppress_tokens=[-1] + number_tokens,
+                suppress_tokens=[-1] + number_tokens
             else:
                 suppress_tokens=[-1]
             result = self.model.transcribe(
