@@ -63,6 +63,7 @@ class Predictor(BasePredictor):
             regroup: bool = Input(default=True, description="Whether to regroup all words into segments with more natural boundaries."),
             initial_prompt: str = Input(default=None, description="Text to provide as a prompt for the first window (transcribe mode only)."),
             aligner: str = Input(default='new', choices=['new', 'legacy'], description="The aligner to use."),
+            suppress_numbers: bool = Input(default=True, description="Whether to suppress numbers."),
     ) -> str:
         report_versions()
 
@@ -82,9 +83,20 @@ class Predictor(BasePredictor):
                 aligner=aligner,
             )
         else:  # transcribe
+            tokenizer = stable_whisper.whisper_compatibility.get_tokenizer(self.model)
+            number_tokens = [
+                i
+                for i in range(tokenizer.eot)
+                if all(c in "0123456789" for c in tokenizer.decode([i]).removeprefix(" "))
+            ]
+            if suppress_numbers:
+                suppress_tokens=[-1] + number_tokens,
+            else:
+                suppress_tokens=[-1]
             result = self.model.transcribe(
                 str(audio_path),
                 language=language,
+                suppress_tokens=suppress_tokens,
                 denoiser=denoiser,
                 vad=vad,
                 regroup=regroup,
