@@ -64,6 +64,7 @@ class Predictor(BasePredictor):
             initial_prompt: str = Input(default=None, description="Text to provide as a prompt for the first window (transcribe mode only)."),
             aligner: str = Input(default='new', choices=['new', 'legacy'], description="The aligner to use."),
             suppress_arabic_numerals: bool = Input(default=True, description="Whether to suppress Arabic numerals."),
+            suppress_pronounceable_symbols: bool = Input(default=True, description="Whether to suppress pronounceable symbols."),
     ) -> str:
         report_versions()
 
@@ -84,15 +85,21 @@ class Predictor(BasePredictor):
             )
         else:  # transcribe
             tokenizer = stable_whisper.whisper_compatibility.get_tokenizer(self.model)
+            suppress_tokens = [-1]
             arabic_numeral_tokens = [
                 i
                 for i in range(tokenizer.eot)
                 if all(c in "0123456789" for c in tokenizer.decode([i]).removeprefix(" "))
             ]
             if suppress_arabic_numerals:
-                suppress_tokens=[-1] + arabic_numeral_tokens
-            else:
-                suppress_tokens=[-1]
+                suppress_tokens += arabic_numeral_tokens
+            pronounceable_symbol_tokens = [
+                i
+                for i in range(tokenizer.eot)
+                if tokenizer.decode([i]).removeprefix(" ") in "¥￥＄$％%#＃¢￠＆"
+            ]
+            if suppress_pronounceable_symbols:
+                suppress_tokens += pronounceable_symbol_tokens
             result = self.model.transcribe(
                 str(audio_path),
                 language=language,
