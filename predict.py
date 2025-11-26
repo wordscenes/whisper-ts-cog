@@ -55,7 +55,7 @@ class Predictor(BasePredictor):
             mode: str = Input(default="transcribe", choices=["transcribe", "align"], description="Mode: 'transcribe' to generate transcript, 'align' to align provided text"),
             text: str = Input(default="", description="Text to align with audio (required when mode='align')"),
             language: str = Input(default="en", description="Language to transcribe"),
-            denoiser: str = Input(default="none", choices=["none", *stable_whisper.audio.SUPPORTED_DENOISERS.keys()], description="The denoiser to use (transcribe mode only)."),
+            denoiser: str = Input(default="none", choices=["none", *stable_whisper.audio.SUPPORTED_DENOISERS.keys()], description="The denoiser to use."),
             # Super important for reducing prediction time
             vad: bool = Input(default=True, description="Whether to use Silero VAD to generate timestamp suppression mask."),
             beam_size: int = Input(default=5, description="Number of beams in beam search, only applicable when temperature is zero (transcribe mode only)."),
