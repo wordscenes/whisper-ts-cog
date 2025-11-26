@@ -71,11 +71,12 @@ class Predictor(BasePredictor):
         if denoiser == "none":
             denoiser = None  # pyright: ignore[reportAssignmentType]
 
+        if aligner == "new":
+            aligner = {"char_split": True}  # pyright: ignore[reportAssignmentType]
+
         if mode == "align":
             if text == "":
                 raise ValueError("text parameter is required when mode='align'")
-            if aligner == "new":
-                aligner = {"char_split": True}  # pyright: ignore[reportAssignmentType]
             result = typing.cast(nn.Module, self.model.align)(
                 str(audio_path),
                 text=text,
