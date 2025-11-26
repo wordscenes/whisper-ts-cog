@@ -62,7 +62,7 @@ class Predictor(BasePredictor):
             best_of: int = Input(default=5, description="Number of candidates when sampling with non-zero temperature (transcribe mode only)."),
             regroup: bool = Input(default=True, description="Whether to regroup all words into segments with more natural boundaries."),
             initial_prompt: str = Input(default=None, description="Text to provide as a prompt for the first window (transcribe mode only)."),
-            aligner: str = Input(default='new', choices=['new', 'legacy'], description="The aligner to use."),
+            aligner: str | dict = Input(default='new', choices=['new', 'legacy'], description="The aligner to use."),
             suppress_arabic_numerals: bool = Input(default=True, description="Whether to suppress Arabic numerals."),
             suppress_pronounceable_symbols: bool = Input(default=True, description="Whether to suppress pronounceable symbols."),
     ) -> str:
@@ -74,6 +74,8 @@ class Predictor(BasePredictor):
         if mode == "align":
             if text == "":
                 raise ValueError("text parameter is required when mode='align'")
+            if aligner == "new":
+                aligner = {"char_split": True}
             result = typing.cast(nn.Module, self.model.align)(
                 str(audio_path),
                 text=text,
