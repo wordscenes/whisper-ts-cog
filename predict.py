@@ -99,7 +99,7 @@ class Predictor(BasePredictor):
             pronounceable_symbol_tokens = [
                 i
                 for i in range(tokenizer.eot)
-                if tokenizer.decode([i]).removeprefix(" ") in "¥￥＄$％%#＃¢￠"
+                if tokenizer.decode([i]).removeprefix(" ") in "¥￥＄$％%#＃¢￠＆"
             ]
             if suppress_pronounceable_symbols:
                 suppress_tokens += pronounceable_symbol_tokens
